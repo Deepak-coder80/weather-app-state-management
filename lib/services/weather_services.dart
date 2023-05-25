@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:weather_cubit/constants/constants.dart';
 import 'package:weather_cubit/exceptions/weather_exceptions.dart';
 import 'package:weather_cubit/models/direct_geocoding.dart';
+import 'package:weather_cubit/models/weather.dart';
 import 'package:weather_cubit/services/http_error_handler.dart';
 
 class WeatherAPIServices {
@@ -45,5 +46,36 @@ class WeatherAPIServices {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<Weather> getWeather(DirectGeocoding directGeocoding) async{
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kApiHost,
+      path: '/data/2.5/weather',
+      queryParameters: {
+        'lat': '${directGeocoding.lat}',
+        'lon': '${directGeocoding.lng}',
+        'units': kUnit,
+        'appid': dotenv.env['APPID']
+      }
+    );
+
+    try {
+      final http.Response response = await httpClient.get(uri);
+
+      if(response.statusCode != 200){
+        throw httpErrorHandler(response);
+      }
+
+      final weatherJson = json.decode(response.body);
+
+      final Weather weather = Weather.fromJson(weatherJson);
+      return weather;
+
+    } catch (e) {
+      rethrow;
+    }
+
   }
 }
