@@ -19,7 +19,7 @@ class DirectGeocoding extends Equatable {
     return DirectGeocoding(
       name: data['name'],
       lat: data['lat'],
-      lng: data['lng'],
+      lng: data['lon'],
       country: data['country'],
     );
   }
