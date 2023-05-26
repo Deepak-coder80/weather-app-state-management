@@ -23,12 +23,12 @@ class WeatherRepository {
       final Weather tempWeather =
           await weatherAPIServices.getWeather(directGeocoding);
 
-      log('tempweather: $tempWeather');
 
       final Weather weather  = tempWeather.copyWith(
         name: directGeocoding.name,
         country: directGeocoding.country,
       );
+      log('weather: $weather');
 
       return weather;
     } on WeatherException catch (e) {
