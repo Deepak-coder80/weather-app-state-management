@@ -4,6 +4,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recase/recase.dart';
+import 'package:weather_cubit/constants/constants.dart';
 import 'package:weather_cubit/cubits/weather/weather_cubit.dart';
 import 'package:weather_cubit/pages/search_page.dart';
 
@@ -56,6 +58,23 @@ class _HomePageState extends State<HomePage> {
 
   String showTemp(double temperature) {
     return '${temperature.toStringAsFixed(2)}℃';
+  }
+
+  Widget showIcon(String icon) {
+    return FadeInImage.assetNetwork(
+      placeholder: 'assets/images/loading.gif',
+      image: 'http://$kIconHost/img/wn/$icon@4x.png',
+      width: 96,
+      height: 96,
+    );
+  }
+  Widget formatText(String desc){
+    final formattedString = desc.titleCase;
+    return Text(
+      formattedString,
+      style: const TextStyle(fontSize: 24),
+      textAlign: TextAlign.center,
+    );
   }
 
   Widget showWeather() {
@@ -186,6 +205,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
+              ],
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Spacer(),
+                showIcon(state.weather.icon),
+                Expanded(child: formatText(state.weather.description),),
+                const Spacer(),
               ],
             ),
           ],
