@@ -38,11 +38,13 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<ThemeBloc>(
             create: (context) =>
-                ThemeBloc(weatherBloc: context.read<WeatherBloc>()),
+                ThemeBloc(),
           ),
         ],
         child: BlocListener<WeatherBloc, WeatherState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            context.read<ThemeBloc>().setTheme(state.weather.temp);
+          },
           child: BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
               return MaterialApp(
