@@ -1,5 +1,4 @@
-
-part of 'theme_cubit.dart';
+part of 'theme_bloc.dart';
 
 enum AppTheme{
   light,
@@ -30,3 +29,4 @@ class ThemeState extends Equatable {
   @override
   bool get stringify => true;
 }
+
