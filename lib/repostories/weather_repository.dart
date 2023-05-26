@@ -28,7 +28,6 @@ class WeatherRepository {
         name: directGeocoding.name,
         country: directGeocoding.country,
       );
-      log('weather: $weather');
 
       return weather;
     } on WeatherException catch (e) {
