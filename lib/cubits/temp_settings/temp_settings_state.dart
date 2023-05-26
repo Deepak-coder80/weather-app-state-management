@@ -12,7 +12,7 @@ class TempSettingState extends Equatable {
   });
 
   factory TempSettingState.initial(){
-    return TempSettingState();
+    return const TempSettingState();
   }
 
   @override
