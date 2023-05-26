@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_cubit/cubits/temp_settings/temp_settings_cubit.dart';
+
+import '../bloc/temp_settings/temp_settings_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -21,9 +22,9 @@ class SettingsPage extends StatelessWidget {
           title: const Text('Temperature Unit'),
           subtitle: const Text('Celsius/Fahrenheit (Defalut: Celsius)'),
           trailing: Switch(
-            value: context.watch<TempSettingsCubit>().state.tempUnit == TempUnit.celsius,
+            value: context.watch<TempSettingsBloc>().state.tempUnit == TempUnit.celsius,
             onChanged: (_){
-                context.read<TempSettingsCubit>().toogleTempUnit();
+                context.read<TempSettingsBloc>().add(ToogleTempUnitEvent());
             },
           ),
         ),

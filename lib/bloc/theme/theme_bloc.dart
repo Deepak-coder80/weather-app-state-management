@@ -23,4 +23,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       emit(state.copyWith(appTheme: event.appTheme));
     });
   }
+
+  @override
+  Future<void> close() {
+    weatherSubscription.cancel();
+    return super.close();
+  }
 }

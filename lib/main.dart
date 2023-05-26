@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather_cubit/cubits/temp_settings/temp_settings_cubit.dart';
-import 'package:weather_cubit/cubits/theme/theme_cubit.dart';
-import 'package:weather_cubit/cubits/weather/weather_cubit.dart';
+import 'package:weather_cubit/bloc/temp_settings/temp_settings_bloc.dart';
+import 'package:weather_cubit/bloc/theme/theme_bloc.dart';
+import 'package:weather_cubit/bloc/weather/weather_bloc.dart';
+
 import 'package:weather_cubit/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_cubit/repostories/weather_repository.dart';
@@ -27,26 +28,25 @@ class MyApp extends StatelessWidget {
       ),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<WeatherCubit>(
-            create: (context) => WeatherCubit(
+          BlocProvider<WeatherBloc>(
+            create: (context) => WeatherBloc(
               weatherRepository: context.read<WeatherRepository>(),
             ),
           ),
-          BlocProvider<TempSettingsCubit>(
-            create: (context) => TempSettingsCubit(),
+          BlocProvider<TempSettingsBloc>(
+            create: (context) => TempSettingsBloc(),
           ),
-          BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(),
+          BlocProvider<ThemeBloc>(
+            create: (context) =>
+                ThemeBloc(weatherBloc: context.read<WeatherBloc>()),
           ),
         ],
-        child: BlocListener<WeatherCubit, WeatherState>(
-          listener: (context, state) {
-            context.read<ThemeCubit>().setTheme(state.weather.temp);
-          },
-          child: BlocBuilder<ThemeCubit, ThemeState>(
+        child: BlocListener<WeatherBloc, WeatherState>(
+          listener: (context, state) {},
+          child: BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
               return MaterialApp(
-                title: 'Weather Cubit',
+                title: 'Weather Bloc',
                 debugShowCheckedModeBanner: false,
                 theme: state.appTheme == AppTheme.light
                     ? ThemeData.light()
