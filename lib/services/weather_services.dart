@@ -22,7 +22,7 @@ class WeatherAPIServices {
       queryParameters: {
         'q':city,
         'limit': kLimit,
-        'appid': dotenv.env['APPID']
+        'appid': '26f712f9fa9f526c0a977b77b69ae853'
       }
     );
 
@@ -57,7 +57,7 @@ class WeatherAPIServices {
         'lat': '${directGeocoding.lat}',
         'lon': '${directGeocoding.lng}',
         'units': kUnit,
-        'appid': dotenv.env['APPID']
+        'appid': "26f712f9fa9f526c0a977b77b69ae853"
       }
     );
 

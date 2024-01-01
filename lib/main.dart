@@ -11,7 +11,7 @@ import 'package:weather_cubit/services/weather_services.dart';
 import 'package:http/http.dart' as http;
 
 void main() async {
-  await dotenv.load(fileName: '.env');
+  // await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
